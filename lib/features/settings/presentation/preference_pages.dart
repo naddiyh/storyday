@@ -175,13 +175,13 @@ class PrivacyPage extends StatelessWidget {
             style: TextStyle(fontWeight: FontWeight.w800)),
         SizedBox(height: 8),
         Text(
-            'Notes, schedules, completed focus sessions and preferences are saved locally on this device. Cloud sync, account backup and encryption are not connected. No journal content is sent to an AI service.')
+            'Local journaling works without an account. When signed in, journals and checklists in your account journal sync to Supabase. Copying your separate local notes requires confirmation in Profile. Schedules, focus sessions, profile and appearance still stay on this device. Local caches are not encrypted. No journal content is sent to an AI service.')
       ])),
       const SizedBox(height: 24),
       const OutlinedButton(
           onPressed: null, child: Text('Download my data - coming later')),
       const SizedBox(height: 8),
-      const Text('There is no connected account to delete.',
+      const Text('Account deletion is not available in this build.',
           textAlign: TextAlign.center)
     ]);
   }
@@ -199,11 +199,11 @@ class _HelpPageState extends State<HelpPage> {
     'How does Top 3 work?':
         'Home shows the first three checklist items saved for the selected date. Check them off there or open the checklist to edit it. Unfinished items stay on their original date.',
     'What does Puti do with my journals?':
-        'Puti is your visual companion. Your entries are saved on this device and are not processed by AI.',
+        'Puti is your visual companion. Local entries stay on this device; signed-in journal entries sync to your Supabase account. They are not processed by AI.',
     'How do I share to WA Status?':
         'The story preview helps you review a day, week or month. Direct social sharing and exported images are not connected yet.',
     'Can I use Daystick offline?':
-        'Local journaling works offline after the app is installed. There is no cloud backup in this build.',
+        'Local journaling works offline after the app is installed. Account journal changes are kept locally and retried when sync is available. Open Profile to see sync status or retry.',
     'How do I change my theme or buddy?':
         'Open Profile, then Themes & Appearance. Sweet Pastel, Calm & Natural and Midnight are available. Puti is the current buddy.'
   };

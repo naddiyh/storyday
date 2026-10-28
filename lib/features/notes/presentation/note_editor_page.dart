@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import '../data/note_repository.dart';
 import '../domain/note.dart';
+import 'package:uuid/uuid.dart';
 
 class NoteEditorPage extends ConsumerStatefulWidget {
   const NoteEditorPage({
@@ -28,6 +29,7 @@ class NoteEditorPageState extends ConsumerState<NoteEditorPage> {
   late final TextEditingController _bodyController;
   late NoteKind _kind;
   bool _saving = false;
+  late final String _noteId;
   bool bold = false, italic = false, underline = false;
   double fontSize = 15;
   String category = 'To-do';
@@ -40,6 +42,7 @@ class NoteEditorPageState extends ConsumerState<NoteEditorPage> {
   @override
   void initState() {
     super.initState();
+    _noteId = widget.initial?.id ?? const Uuid().v4();
     _kind = widget.kind;
     bold = widget.initial?.bold ?? false;
     italic = widget.initial?.italic ?? false;
@@ -101,7 +104,7 @@ class NoteEditorPageState extends ConsumerState<NoteEditorPage> {
         fontSize: fontSize,
         stickers: List.of(stickers),
         category: category,
-        id: widget.initial?.id ?? '${DateTime.now().microsecondsSinceEpoch}',
+        id: _noteId,
         date: widget.date,
         kind: kind,
         title: title.isEmpty

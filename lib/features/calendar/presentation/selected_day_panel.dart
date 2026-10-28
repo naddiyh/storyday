@@ -85,14 +85,11 @@ class SelectedDayPanel extends ConsumerWidget {
                           : null)),
               value: task.note.checklist[task.index].done,
               onChanged: (value) async {
-                final old = task.note;
-                final updated = [...old.checklist];
-                updated[task.index] = ChecklistItem(
-                    text: updated[task.index].text, done: value ?? false);
                 try {
                   await ref
                       .read(ordinaryNotesProvider.notifier)
-                      .save(old.withChecklist(updated));
+                      .setChecklistItem(
+                          task.note.id, task.index, value ?? false);
                 } catch (_) {
                   if (context.mounted) {
                     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(

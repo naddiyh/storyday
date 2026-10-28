@@ -73,12 +73,10 @@ class NoteDetailPage extends ConsumerWidget {
                 title: Text(current.checklist[i].text),
                 value: current.checklist[i].done,
                 onChanged: (v) async {
-                  final list = [...current.checklist];
-                  list[i] = ChecklistItem(text: list[i].text, done: v ?? false);
                   try {
                     await ref
                         .read(ordinaryNotesProvider.notifier)
-                        .save(current.withChecklist(list));
+                        .setChecklistItem(current.id, i, v ?? false);
                   } catch (_) {
                     if (context.mounted) {
                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(

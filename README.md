@@ -19,8 +19,12 @@ A Flutter foundation for a personal, calendar-first journal on Android and iOS.
 Home combines sample journal entries with saved notes and schedules; decoration edits remain session-only.
 Secret Note and Quick Mood were removed at the user's request on October 24, 2026,
 including their calendar indicators, filters, recap and settings UI.
-Supabase, authentication, device notifications, ambient audio/system DND,
-rich media/drawing, and story export remain unavailable. Active focus sessions
+Supabase email/password authentication and local-first ordinary journal sync
+are now implemented behind public client configuration. Without configuration,
+the app continues as a local journal. See [Supabase setup](docs/supabase-integration.md)
+for migration, RLS, offline retry, account isolation and deployment status.
+Device notifications, ambient audio/system DND, rich media/drawing, and story
+export remain unavailable. Active focus sessions
 continue while the app is open; completed records and schedules restore after restart.
 See [the planner update report](docs/planner-update-report.md).
 
@@ -79,7 +83,8 @@ android/ and ios/            native Flutter runners
 
 See [architecture](docs/architecture.md) and the unchanged
 [product requirements](docs/product-requirements.md). The prototype stores ordinary notes and planner data locally in shared preferences.
-Cloud sync is not connected. Secret Note and mood features are no longer part of the current UI.
+Cloud sync requires a configured Daystick Supabase project and the supplied migration.
+Secret Note and mood features are no longer part of the current UI.
 
 ## Updated UI scope
 
@@ -87,7 +92,8 @@ Navigation now uses Home, Memories, Create, Recap, and Profile. Appearance lives
 under Profile, with three visual themes and light/dark/system modes saved locally.
 Home includes saved notes and schedules alongside sample entries. Memories and Recap use locally saved data.
 The central plus has no visible label and opens the full Create page with a close
-action. Supabase is not connected. Responsive behavior and
+action. Account journal/checklist sync is optional; schedules, focus and profile
+remain local. Responsive behavior and
 regression results are recorded in [the responsive UI report](docs/responsive-ui-report.md).
 Run `tool/responsive-check.ps1` against the compiled web preview for browser captures.
 

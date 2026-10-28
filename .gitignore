@@ -46,6 +46,9 @@ app.*.map.json
 .env
 .env.*
 !.env.example
+config/supabase.local.json
+supabase/.temp/
+supabase/.branches/
 *.jks
 *.keystore
 android/key.properties
@@ -55,3 +58,4 @@ test/failures/
 # Local browser verification artifacts
 .playwright-cli/
 output/playwright/
+output/supabase-tests/

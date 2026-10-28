@@ -87,9 +87,17 @@ class CreateScreen extends ConsumerWidget {
                                     child: const Text('Delete'))
                               ]));
                   if (confirmed == true) {
-                    await ref
-                        .read(ordinaryNotesProvider.notifier)
-                        .delete(note.id);
+                    try {
+                      await ref
+                          .read(ordinaryNotesProvider.notifier)
+                          .delete(note.id);
+                    } catch (_) {
+                      if (context.mounted) {
+                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                            content: Text(
+                                'Could not delete. Your note is still here.')));
+                      }
+                    }
                   }
                 },
               ),

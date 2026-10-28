@@ -16,3 +16,29 @@ jobs:
       - run: dart format --output=none --set-exit-if-changed lib test tool
       - run: flutter analyze
       - run: flutter test
+      - run: flutter build web --release --web-renderer html
+  journal-rls:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_PASSWORD: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify journal ownership and sync guards on disposable PostgreSQL
+        env:
+          PGPASSWORD: postgres
+        run: >-
+          psql -h 127.0.0.1 -U postgres -v ON_ERROR_STOP=1
+          -f supabase/tests/bootstrap_test_auth.sql
+          -f supabase/migrations/20261028000100_journal_sync.sql
+          -f supabase/migrations/20261028000200_journal_conflict_http409.sql
+          -f supabase/tests/journal_rls.sql

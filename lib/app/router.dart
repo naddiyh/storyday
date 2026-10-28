@@ -15,10 +15,17 @@ import '../features/recap/presentation/recap_screen.dart';
 import '../features/settings/presentation/settings_screen.dart';
 import '../features/themes/presentation/themes_screen.dart';
 import 'shell.dart';
+import '../core/cloud/cloud_connection.dart';
+import '../features/account/presentation/account_page.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 final routerProvider = Provider<GoRouter>((ref) {
+  // Recreate navigation on account changes to close stale editors/read views.
+  ref.watch(cloudUserProvider.select((u) => u?.id));
+  final recovering = ref.watch(authEventsProvider
+      .select((a) => a.valueOrNull?.event == AuthChangeEvent.passwordRecovery));
   final router = GoRouter(
-    initialLocation: '/calendar',
+    initialLocation: recovering ? '/account/password' : '/calendar',
     routes: [
       GoRoute(path: '/', redirect: (_, __) => '/calendar'),
       StatefulShellRoute.indexedStack(

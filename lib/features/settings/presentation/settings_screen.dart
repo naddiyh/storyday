@@ -11,6 +11,7 @@ import '../../../core/widgets/page_content.dart';
 import '../../../core/widgets/scrapbook.dart';
 import '../../themes/data/appearance_store.dart';
 import '../../notes/data/note_repository.dart';
+import '../../account/presentation/cloud_account_panel.dart';
 
 class SettingsScreen extends ConsumerWidget {
   const SettingsScreen({super.key});
@@ -76,6 +77,8 @@ class SettingsScreen extends ConsumerWidget {
                                 style: Theme.of(context).textTheme.bodySmall)
                           ]))))
       ]),
+      const SizedBox(height: 12),
+      const CloudAccountPanel(),
       const SizedBox(height: 12),
       ScrapbookPanel(
           child: Column(children: [
